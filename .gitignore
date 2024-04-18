@@ -1,0 +1,10 @@
+#Terraform stuff
+.terraform
+.terraform.lock.hcl
+
+#Misc OS files
+.DS_Store
+Thumbs.db
+
+#Local dev data for Postgres container
+localdev/postgres

@@ -1,0 +1,16 @@
+---
+
+services:
+
+  tasktask-postgres:
+    image: postgres:16
+    container_name: tasktask-postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - ./localdev/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=tasktask
+      - POSTGRES_USER=tasktask
+      - POSTGRES_PASSWORD=v3ry53cre7
