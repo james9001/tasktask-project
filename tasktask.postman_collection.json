@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "cc1f4d06-b4c1-4fa2-bb08-1586e0f37c9f",
+		"name": "tasktask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408250"
+	},
+	"item": [
+		{
+			"name": "backend prom metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8091/api/metrics/prometheus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"api",
+						"metrics",
+						"prometheus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backend: search tasks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pageSize\": 10,\n    \"pageNumber\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/api/task/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"api",
+						"task",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backend: create new task",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('randomNumber', Math.floor(Math.random() * 3000000000000))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"should be ignored\",\n    \"name\": \"Task {{$randomInt}} for {{$randomFirstName}}\",\n    \"description\": \"Blah blah {{$randomCity}} {{$randomCompanyName}}\",\n    \"dueDate\": \"{{randomNumber}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/api/task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"api",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backend: create new task (invalid)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('randomNumber', Math.floor(Math.random() * 3000000000000))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"should be ignored\",\n    \"name\": \"Task {{$randomInt}} for {{$randomFirstName}}\",\n    \"description\": \"Blah blah {{$randomCity}} {{$randomCompanyName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/api/task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"api",
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "backend: update task",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('randomNumber', Math.floor(Math.random() * 3000000000000))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"9b45943a-038b-4961-8f23-27633411b36f\",\n    \"name\": \"Listen to music\",\n    \"description\": \"There is a significant quantity of music to be listened to. This is a blocking task.\",\n    \"dueDate\": \"{{randomNumber}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/api/task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"api",
+						"task"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
