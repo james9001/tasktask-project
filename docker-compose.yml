@@ -14,3 +14,24 @@ services:
       - POSTGRES_DB=tasktask
       - POSTGRES_USER=tasktask
       - POSTGRES_PASSWORD=v3ry53cre7
+
+  tasktask-backend:
+    image: tasktask-backend:latest
+    container_name: tasktask-backend
+    restart: unless-stopped
+    depends_on:
+      - tasktask-postgres
+    ports:
+      - 8091:8091
+    environment:
+      - DATABASE_URL=postgresql://tasktask:v3ry53cre7@tasktask-postgres:5432/tasktask?schema=public
+
+  tasktask-frontend:
+    image: tasktask-frontend:latest
+    container_name: tasktask-frontend
+    restart: unless-stopped
+    ports:
+      - 8092:80
+    environment:
+      - TASKTASK_SERVERURL=http://localhost:8091
+      - TASKTASK_PRODUCTION=true
